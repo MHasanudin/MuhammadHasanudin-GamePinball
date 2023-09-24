@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BumperController : MonoBehaviour
@@ -8,16 +6,16 @@ public class BumperController : MonoBehaviour
     public float multiplier;
     public Color color;
 
-    private Renderer renderer;
+    private Renderer _renderer;
     private Animator animator;
 
 
     private void Start()
     {
-        renderer = GetComponent<Renderer>();
+        _renderer = GetComponent<Renderer>();
         animator = GetComponent<Animator>();    
 
-        renderer.material.color = color;
+        _renderer.material.color = color;
     }
 
     private void OnCollisionEnter(Collision collision)

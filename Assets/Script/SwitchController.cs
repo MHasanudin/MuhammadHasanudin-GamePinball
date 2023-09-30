@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class SwitchController : MonoBehaviour
 {
@@ -18,6 +19,9 @@ public class SwitchController : MonoBehaviour
     private bool isOn;
     private Renderer _renderer;
 
+    public AudioManager audioManager;
+    public VFXManager vfxManager;
+
     private void Start()
     {
         _renderer = GetComponent<Renderer>();
@@ -26,12 +30,23 @@ public class SwitchController : MonoBehaviour
         StartCoroutine(BlinkTImerStart(5));
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider collider)
     {
-        if(other == bola)
+        if(collider == bola)
         {
             //Debug.Log("Bola Kena Switch");
-            Toggle();
+            vfxManager.SwitchVFX(collider.transform.position);
+
+            if (state == SwitchState.On)
+            {
+                audioManager.SwitchSFX(collider.transform.position, false);
+                Toggle();
+            }
+            else
+            {
+                audioManager.SwitchSFX(collider.transform.position, true);
+                Toggle();
+            }
         }
     }
 
@@ -48,6 +63,7 @@ public class SwitchController : MonoBehaviour
             state = SwitchState.Off;
             _renderer.material = offMaterial;
             StartCoroutine(BlinkTImerStart(5));
+   
         }
     }
 

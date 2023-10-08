@@ -14,6 +14,7 @@ public class SwitchController : MonoBehaviour
     public Collider bola;
     public Material offMaterial;
     public Material onMaterial;
+    public float score;
 
     private SwitchState state;
     private bool isOn;
@@ -21,6 +22,7 @@ public class SwitchController : MonoBehaviour
 
     public AudioManager audioManager;
     public VFXManager vfxManager;
+    public ScoreManager scoreManager;
 
     private void Start()
     {
@@ -77,6 +79,8 @@ public class SwitchController : MonoBehaviour
         {
             Set(true);
         }
+
+        scoreManager.AddScore(score);
     }
 
     private IEnumerator Blink(int times)
